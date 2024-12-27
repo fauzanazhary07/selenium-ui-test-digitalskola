@@ -29,7 +29,8 @@ describe('TestCase 2', function () {
     it('Error message appears for invalid credentials', async function (){
         const loginPage = new LoginPage(driver);
         const errorMessage = await loginPage.getErrorMessage();
-        assert.strictEqual(errorMessage, 'Epic sadface: Username and password do not match any user in this service', 'Expected error message does not match')      
+        assert.strictEqual(errorMessage, 'Epic sadface: Username and password do not match any user in this service'
+            , 'Expected error message does not match')      
     });
 
     //menyimpan screenshot
