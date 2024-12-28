@@ -14,7 +14,7 @@ class CartPage {
 
     async addItemToCart(){
         await this.driver.findElement(this.addToCartBtnBackpack).click();
-        await this.driver.findElement(this.addToCartBtnBikeLight).click();
+        await this.driver.findElement(this.addToCartBtnBoltTShirt).click();
         const cartItemCountText = await this.driver.findElement(this.cartCount).getText();
         const itemCount = cartItemCountText.trim();
         return itemCount;

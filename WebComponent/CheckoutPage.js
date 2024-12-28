@@ -3,37 +3,29 @@ const { By } = require('selenium-webdriver');
 class CheckoutPage{
     constructor(driver){
         this.driver = driver;
-        this.firstNameField = By.id('first-name');
-        this.lastNameField = By.id('last-name');
-        this.zipCodeField = By.id('postal-code');
-        this.continueButton = By.id('continue');
-        this.cartButton = ".shopping_cart_badge";
-        this.checkoutButton = "btn btn_action btn_medium checkout_button";
-        this.finishButton = By.id('finish');
+        this.btnCartIcon = By.className('shopping_cart_link');
+        this.btnCheckout = By.xpath('//button[@id="checkout"]');
+        this.firstNameField = By.xpath("//input[@id='first-name']");
+        this.lastNameField = By.xpath("//input[@id='last-name']");
+        this.zipCodeField = By.xpath('//input[@id="postal-code"]');
+        this.continueBtn = By.id('continue');
+        this.finishBtn = By.id('finish');
     }
 
-    async goToCart(){
-        await this.driver.findElement(By.css(this.cartButton)).click();
-    }
-
-    async clickCheckoutButton(){
-         await this.driver.findElement(By.className(this.checkoutButton)).click();
-    }
-
-    async fillCheckoutForm(firstname, lastname, zipcode){
+    async finishCheckoutForm(firstname, lastname, zipcode){
+        await this.driver.findElement(this.btnCartIcon).click();
+        await this.driver.findElement(this.btnCheckout).click();
         await this.driver.findElement(this.firstNameField).sendKeys(firstname);
         await this.driver.findElement(this.lastNameField).sendKeys(lastname);
         await this.driver.findElement(this.zipCodeField).sendKeys(zipcode);
+        await this.driver.findElement(this.continueBtn).click();
+        await this.driver.findElement(this.finishBtn).click();
     }
 
-    async submitCheckout(){
-        await this.driver.findElement(this.continueButton).click();
+    async isOnCheckoutCompletePage(){
+        const title = await this.driver.findElement(By.className('title'));
+        return title.getText();
     }
-
-    async clickFinish(){
-        await this.driver.findElement(this.finishButton).click();
-    }
-
 }
 
 module.exports = CheckoutPage;
